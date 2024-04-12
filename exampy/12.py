@@ -10,15 +10,15 @@ class User:
         self.name = name
         self.registered = False
         self.purchase_history = []
-        
+
     def is_registered(self):
         return self.registered
-    
+
     def register(self):
         self.registered = True
     def add_to_history(self, movie_name, time, category, price):
         self.purchase_history.append({"Фильм": movie_name, "Время": time, "Категория": category, "Цена": price})
-        
+
     def generate_receipt(self, movie_name, time, category, price):
         try:
             wb = Workbook()
@@ -121,10 +121,13 @@ class MovieManager:
             print(tabulate(rows, headers=["Номер", "Название (Адрес)"], tablefmt="grid"))
 
             cinema_choice = int(input("Введите номер кинопарка: "))
-            return cinema_choice
+            if cinema_choice > 5:
+                print("ошибка")
+            else:
+                return cinema_choice
         except Exception as e:
-            print(f"Ошибка при выборе кинопарка: {e}")
-            return None
+                print(f"Ошибка при выборе кинопарка: {e}")
+                return None
 
     def buy_ticket(self, showtime_id):
         try:
@@ -229,6 +232,12 @@ movie_manager = MovieManager()
 movie_manager.run()
 
 
+
+
+
+
+
+
 # import requests
 # import json
 # import sqlite3
@@ -241,7 +250,7 @@ movie_manager.run()
 # url = "https://imdb-top-100-movies.p.rapidapi.com/"
 
 # headers = {
-# 	"X-RapidAPI-Key": "731b735b0cmsh57b9761a93782bdp196090jsnd979c5b98aec",
+# 	"X-RapidAPI-Key": "bca047e55fmsha20c032830bc273p18f219jsn233e49475e18",
 # 	"X-RapidAPI-Host": "imdb-top-100-movies.p.rapidapi.com"
 # }
 
@@ -251,19 +260,19 @@ movie_manager.run()
 
 # for movie in movies:
 #     print(movie.get('title', 'Unknown'))
-    
+
 #     name = movie.get('title', 'Unknown')
 #     genre = movie.get('genre', 'Unknown')[0]
 #     year = movie.get('year', 'Unknown')
 #     description = movie.get('description', 'Unknown')
 #     rating = float(movie.get('rating', 'Unknown'))
-    
+
 #     name = name.replace('"', "'")
 #     genre = genre.replace('"', "'")
 #     description = description.replace('"', "'")
-    
+
 #     print(name, genre, year, description, rating)
-    
+
 #     cursor.execute(f'INSERT INTO movie (name, genre, year, description, rating) VALUES ("{name}", "{genre}", {year}, "{description}", {rating})')
 #     connection.commit()
 
